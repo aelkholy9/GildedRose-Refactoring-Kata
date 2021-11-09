@@ -16,6 +16,26 @@ class GildedRose {
     		item.sellIn -= 1;
     	return item;
     }
+    
+    public Item updateBackStageItem (Item item) {
+    	boolean canSubtractOne = item.quality > 0 ? true : false;
+    	boolean canSubtractTwo = item.quality > 1 ? true : false;
+    	boolean canSubtractThree = item.quality > 2 ? true : false;
+
+    	if(item.sellIn > 10)
+    		item.quality += 1;
+    	
+    	else if (item.sellIn <= 10 && canSubtractTwo)
+    		item.quality += 2;
+    	
+    	else if (item.sellIn <= 5 && canSubtractThree)
+    		item.quality += 3;
+    		
+    	else if (item.sellIn == 0)
+    		item.quality = 0;
+    		
+    	return item;
+    }
 
     public void updateQuality(Item[] items) {
         for(int i=0;i< items.length; i++)
