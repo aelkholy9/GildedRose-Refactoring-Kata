@@ -25,18 +25,38 @@ class GildedRose {
     	if(item.sellIn > 10)
     		item.quality += 1;
     	
+    	else if (item.sellIn <= 5 && canSubtractThree)
+    		item.quality += 3;
+    	
     	else if (item.sellIn <= 10 && canSubtractTwo)
     		item.quality += 2;
     	
-    	else if (item.sellIn <= 5 && canSubtractThree)
-    		item.quality += 3;
     		
     	else if (item.sellIn == 0)
     		item.quality = 0;
-    		
+    	
+    	if(item.sellIn>0)
+    		item.sellIn --;
     	return item;
     }
 
+    public Item updateConjuredItem (Item item) {
+    	if(item.quality > 0)
+    		item.quality -= 2;
+    	if(item.sellIn > 0)
+    		item.sellIn -= 1;
+    	return item;
+    }
+    
+    public Item updateAgedBrieItem(Item item)
+    {
+    	if(item.quality < 50)
+    		item.quality += 1;
+    	if(item.sellIn > 0)
+    		item.sellIn --;
+    	return item;
+    }
+    
     public void updateQuality(Item[] items) {
         for(int i=0;i< items.length; i++)
         {
@@ -44,7 +64,7 @@ class GildedRose {
         	System.out.println(splittedString[0]);
         	if(splittedString[0].equals("Aged"))
         	{
-        	 	
+        	 	items[i] = updateAgedBrieItem(items[i]);
         	} 
         	else if (splittedString[0].equals("Sulfuras,"))
         	{
@@ -52,11 +72,12 @@ class GildedRose {
         	}
         	else if (splittedString[0].equals("Backstage"))
         	{
-        		
+        	 	items[i] = updateBackStageItem(items[i]);
+
         	}
         	else if (splittedString[0].equals("Conjured"))
         	{
-        		
+        		items[i] = updateConjuredItem(items[i]);
         	}
         	else 
         	{
